@@ -6,7 +6,7 @@ email: 9620332265@qq.com
 description: "认真做事"
 keyword: ""
 url: "https://yang20150702.github.io"              # your host, for absolute URL
-baseurl: "/blog"         # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: "/"         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 

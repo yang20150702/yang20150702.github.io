@@ -5,8 +5,6 @@ date:      2018-05-08 20:30:45
 excerpt:   "函数和方法的介绍"
 tag:
 - Python
-- function
-- method
 comments: true
 ---
 

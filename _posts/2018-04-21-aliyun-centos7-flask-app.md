@@ -4,9 +4,9 @@ title: "在阿里云服务器(centos7)使用uwsgi+nginx搭建flask应用环境"
 date: 2018-04-20
 excerpt: "centos7 flask nginx uwsgi"
 tag:
-- Centos7
-- flask
-- python
+- Linux
+- Flask
+- Python
 - uwsgi
 - nginx
 comments: true

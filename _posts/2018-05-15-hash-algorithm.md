@@ -4,7 +4,7 @@ title: "单向散列函数"
 date: 2018-05-15
 excerpt: "单向散列函数及Python标准库hashlib "
 tag:
-- python
+- Python
 - hash
 comments: true
 ---

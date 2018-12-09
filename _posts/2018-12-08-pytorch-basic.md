@@ -81,7 +81,7 @@ Out[20]: torch.Size([5, 3])
 1. 支持和numpy同样的索引操作
 2. Resizing:改变tensor的大小，使用`torch.view`
 3. 若tensor有一个元素，可以使用`.item()`来获取值
-4. 更多的tensor操作：见 [torch库](https://pytorch.org/docs/master/tensors.html)
+4. 更多的tensor操作：见 [torch.Tensor库](https://pytorch.org/docs/master/tensors.html)
 
 ### Numpy array类型变量和 torch tensor之间的转换
 
@@ -124,7 +124,7 @@ tensor是pytorch的核心数据结构，如果设定tensor变量的属性`.requi
 
 在tensor上调用`.backward()`，可以用来计算导数。
 
-> 导数和梯度，都用来表示因变量针对自变量的变化率。
+> 导数和梯度，都用来表示因变量对于自变量的变化率。
 
 Tensor和Function互相连接并构建一个非循环图，它编码完整的计算历史。
 每个tensor都有一个`.grad_fn`属性，该属性引用已创建tensor的Function（除了用户创建的tensors，它们的`grad_fn`属性为None）。

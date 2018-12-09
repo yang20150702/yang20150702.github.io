@@ -1,4 +1,3 @@
-# Pytorch的基础概念和操作
 ---
 layout: post
 title: "Pytorch的基础概念和操作"
@@ -132,4 +131,4 @@ Tensor和Function互相连接并构建一个非循环图，它编码完整的计
 
 ## 神经网络
 
-torch.nn`用于构造神经网络模型。`nn`依赖`autograd`来定义模型并进行自动微分。
+`torch.nn`用于构造神经网络模型。`nn`依赖`autograd`来定义模型并进行自动微分。

@@ -2,9 +2,9 @@
 ---
 layout: post
 title: "subprocess: 子进程管理"
-date: 2018-12-08
+date: 2018-12-12
 tag:
-- pytorch
+- Python
 comments: true
 ---
 

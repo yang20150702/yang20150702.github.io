@@ -1,4 +1,3 @@
-# subprocess: 子进程管理
 ---
 layout: post
 title: "subprocess: 子进程管理"

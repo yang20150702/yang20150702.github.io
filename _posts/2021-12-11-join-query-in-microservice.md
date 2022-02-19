@@ -43,3 +43,9 @@ Elasticsearch并没有对处理实体之间的关系给出直接的方法。Elas
 + Parent/child relationships
 
 Application-side joins能够与底层的数据存储解耦，具有更好的可扩展性。然而，多次单表查询会增加网络通信开销，导致单次请求的通信响应时间变长。
+
+## 总结
+
+MySQL的join是在sql解析层执行的，而存储引擎只是进行了基础的数据查询。
+
+要想实现跨业务的关联查询，实际上要做的工作也就是MySQL的join能力在应用层进行实现以及优化。

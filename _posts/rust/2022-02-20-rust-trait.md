@@ -54,7 +54,7 @@ fn test_trait_with_dyn() {
 
 在内存中，一个trait对象是一个胖指针，由指向值的指针加上一个指向表示该值类型的函数表的指针组成。
 因此，每个trait对象要占两个机器字。如图所示：
-![内存中的rust对象](../../img/rust/trait-in-memory.png)
+![内存中的rust对象](img/rust/trait-in-memory.png)
 
 ### 泛型函数
 

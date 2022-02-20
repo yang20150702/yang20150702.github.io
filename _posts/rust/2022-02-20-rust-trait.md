@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "rust trait"
-date: 2022-02-11
+date: 2022-02-20
 tag:
 - rust
 - trait

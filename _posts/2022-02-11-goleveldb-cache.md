@@ -125,7 +125,7 @@ func (n *mNode) initBucket(i uint32) *mBucket {
 }
 ```
 
-在扩容或缩容时，首先进行rehash操作，首先定位到需要hash的bucket，将bucket.freeze状态置为true，获取当前bucket上新的node列表，通过CAS来进行无锁操作（更新变量的地址）。这种操作方式比直接加锁的开销要小。
+在扩容或缩容时，需要进行rehash操作，首先定位到需要hash的bucket，将bucket.freeze状态置为true，获取当前bucket上新的node列表，通过CAS来进行无锁操作（更新变量的地址）。这种操作方式比直接加锁的开销要小。
 
 在什么情况会进行扩容：
 

@@ -68,6 +68,13 @@ WiredTiger maintains a table’s data in memory using a data structure called a 
 根据一个内存操作来预估在B+tree查找一个节点需要的时间：100ns(一次内存随机读写的时间)；
 进一步估算出读取100w需要多长时间。
 
+### IN操作优化
+
+从下图可以看出：当IN 操作的参数数量不同时，对应的查询耗时也有所不同。
+[](/img/mongodb/mongodb-in-query.png)
+
+由于`IN`条件是关联查询的通用条件，对应的参数数量是由关联表的查询结果决定。
+
 ### 索引优化
 
 索引类型：默认的unique `_id`索引、单字段索引、组合索引、multiKey索引（数组字段）、Geo索引、文本索引、哈希索引、唯一索引、离散索引、部分索引

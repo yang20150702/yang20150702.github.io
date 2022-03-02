@@ -60,10 +60,10 @@ lruNode的handle对象是Cache Node的Cache handle；负责管理Node的引用�
 ## 安全性（加锁粒度）
 
 Cache整体结构实际上是多个bucket数组，每个bucket是Node数组。因此整体的加锁粒度分为两层：
-Cache: 使用RWMutex
-  mHead(mNode): mNode组成单链表，一个节点
-    buckets([]mBucket): bucket列表，mBucket有独立的Mutex(用于bucket扩容、缩容)
-      node([]Node): 每个bucket由Node列表组成，Node有独立的Mutex
++ Cache: 使用RWMutex
+  + mHead(mNode): mNode组成单链表，一个节点
+    + buckets([]mBucket): bucket列表，mBucket有独立的Mutex(用于bucket扩容、缩容)
+      + node([]Node): 每个bucket由Node列表组成，Node有独立的Mutex
 
 > 使用指针来共享数据，避免内存空间重复分配。
 
@@ -195,6 +195,63 @@ type Cacher interface {
 
 ### `sync.Map`的实现
 
+设计哲学：使用read、dirty两个map来存储数据，read用来读取，dirty用来更新；当miss次数超过阈值时，dirty升级为read
+
+```
+type Map struct {
+	mu Mutex
+
+	read atomic.Value // readOnly
+	dirty map[interface{}]*entry
+	misses int
+}
+```
+
+miss字段标记了某些key不在m.read的次数。
+当miss次数大于m.dirty的键值对数量时，m.dirty提升为m.read。
+
+读取数据，优先从read读取数据，如果不存在，继续在dirty中查找。
+
+添加新数据，只往m.dirty中添加entry。如果m.dirty为空的话，需要将m.read的数据复制到m.dirty中。
+
+更新操作，先在m.read中寻找，然后在m.dirty中寻找，找到即更新;否则添加新数据.如果m.dirty有新数据时，会将值为nil的entry更新为expunged标记。
+
+删除操作，如果entry不存在m.read中，并且m.dirty有新数据，那么直接在dirty上删除；如果entry存在m.read中，将entry进行标记删除，`p==nil`。
+
+Entry的定义
+```
+// An entry is a slot in the map corresponding to a particular key.
+type entry struct {
+	// p points to the interface{} value stored for the entry.
+	//
+	// If p == nil, the entry has been deleted and m.dirty == nil.
+	//
+	// If p == expunged, the entry has been deleted, m.dirty != nil, and the entry
+	// is missing from m.dirty.
+	//
+	// Otherwise, the entry is valid and recorded in m.read.m[key] and, if m.dirty
+	// != nil, in m.dirty[key].
+	//
+	// An entry can be deleted by atomic replacement with nil: when m.dirty is
+	// next created, it will atomically replace nil with expunged and leave
+	// m.dirty[key] unset.
+	//
+	// An entry's associated value can be updated by atomic replacement, provided
+	// p != expunged. If p == expunged, an entry's associated value can be updated
+	// only after first setting m.dirty[key] = e so that lookups using the dirty
+	// map find the entry.
+	p unsafe.Pointer // *interface{}
+}
+```
+
+Entry的p指针使用atomic进行原子操作
+
+sync.Pool的设计哲学：将缓冲池的数据poolLocal与调度器P进行绑定，每个线程从关联的P所拥有的poolLocal获取数据，从而降低了锁竞争。
+
+PoolLocal拥有自己的private、shared存储空间：
++ private: 仅能被对应的P所使用
++ shared：双端队列实现
+
 ### redis中hash的实现
 
 ## 参考
@@ -202,3 +259,4 @@ type Cacher interface {
 1. Dynamic-sized nonblocking hash tables
 2. [leveldb-handbook](https://leveldb-handbook.readthedocs.io/zh/latest/index.html)
 3. [leveldb中的LRUCache设计](https://bean-li.github.io/leveldb-LRUCache/)
+4. [Go 1.9 sync.Map揭秘](https://colobu.com/2017/07/11/dive-into-sync-Map/)

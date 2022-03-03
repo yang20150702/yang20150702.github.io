@@ -71,7 +71,7 @@ WiredTiger maintains a table’s data in memory using a data structure called a 
 ### IN操作优化
 
 从下图可以看出：当IN 操作的参数数量不同时，对应的查询耗时也有所不同。
-[](/img/mongodb/mongodb-in-query.png)
+![](/img/mongodb/mongodb-in-query.png)
 
 由于`IN`条件是关联查询的通用条件，对应的参数数量是由关联表的查询结果决定。
 

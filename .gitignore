@@ -6,3 +6,4 @@ node_modules
 *.sh
 _includes/bak/
 .idea
+Gemfile.lock

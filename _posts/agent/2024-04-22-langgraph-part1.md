@@ -43,7 +43,7 @@ langchain提供内置的LECL语言来支持DAG工作流程，并针对性地进�
 
 用langgraph复现了langchain提供的 AgentExecutor实现。
 
-> 代码自测可运行，可能需要手动安装一些pkg
+> 代码自测可运行，需要替换你的OpenAI LLM配置参数
 
 ```python
 import operator
@@ -79,9 +79,8 @@ prompt = hub.pull("hwchase17/openai-functions-agent")
 
 # Choose the LLM that will drive the agent
 llm = AzureChatOpenAI(
-    azure_endpoint="https://ainnovation-yangyang.openai.azure.com/",
+    azure_endpoint="https://xxx.openai.azure.com/",
     api_version="2023-12-01-preview",
-    # model="gpt-4-0613"
     model="gpt-35-turbo-0613"
 )
 

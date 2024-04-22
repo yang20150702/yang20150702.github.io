@@ -27,8 +27,8 @@ langgraph 的灵感来自 Pregel 和 Apache Beam。暴露的接口借鉴了 Netw
 > NetworkX是一个 Python 包，用于创建、操作和研究复杂网络的结构、动态和功能。
 
 langgraph的核心点是为LLM应用程序添加了循环。
-对于类似Agent的行为，循环是核心功能，其核心流程是：循环调用LLM来确定下一步该如何做。
-对于multi-Agent的场景，循环也是核心功能，其核心流程是：多个Agent之间需要进行多轮会话。
++ 对于单Agent的行为，循环是核心功能，其核心流程是：循环调用LLM来确定下一步该如何做。
++ 对于multi-Agent的场景，循环也是核心功能，其核心流程是：多个Agent之间需要进行多轮会话。
 
 相比于langgraph，langchain构建的LLM应用是一种DAG工作流程，也就是说，某个功能调用结束后不能再次调用，除非手动进行了特殊处理（比如AgentExecutor）。
 langchain提供内置的LECL语言来支持DAG工作流程，并针对性地进行了优化。注意：langgraph并未针对DAG流程进行优化，建议用langchain来构建DAG工作流程。
@@ -37,11 +37,11 @@ langchain提供内置的LECL语言来支持DAG工作流程，并针对性地进�
 
 ### 示例
 
-具体的含义请参考官方文档
+具体的含义请参考 [langgraph](https://python.langchain.com/docs/langgraph/#documentation)
 
 #### AgentExector
 
-用langgraph复现了langchain提供的 AgentExecutor实现。
+用 langgraph 复现了 langchain 提供的 AgentExecutor实现。
 
 > 代码自测可运行，需要替换你的OpenAI LLM配置参数
 

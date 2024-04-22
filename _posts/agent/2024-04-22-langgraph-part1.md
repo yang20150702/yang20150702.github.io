@@ -6,20 +6,21 @@ tag:
 - langgraph
 - agent
 - langchain
+- multi-Agent
 comments: false
 ---
 
 > 2024年，随着OpenAI的Assistants API广泛使用，智谱、百度文心一言等大模型开始大力主推Agent，Agent在业界引起了极大的影响。其中，有一些AI领域大佬很认同Agent的未来前景：比如，Andrew Ng(吴恩达)在3月份分享的 AI agentic workflows;
 > 
-> 作为AI从业者，我们快速落地了Agent在业务场景中的应用；同时，也非常看好multi-Agent在未来业务中的落地场景并正在落地，
+> 作为AI从业者，我们快速落地了 Agent 在业务场景中的应用；同时，也非常看好 multi-Agent 在未来业务中的落地场景并正在落地，
 > 
-> 目前，我正在持续关注langgraph、autoGen、Camel、AgentX等Agent开源项目的进展。 我会分享一些开源Agent的应用以及设计原理
+> 目前，我正在持续关注 langgraph、autoGen、Camel、AgentX 等Agent开源项目的进展。 我会分享一些开源Agent的应用以及设计原理
 
-### langgraph简介
+### langgraph 简介
 
-langgraph是一个使用LLM来构建有状态的、multi-actor应用程序的库。
-它扩展了LangChain Expression Language的能力，能够以循环的方式跨多个计算step来协调多个chains(或者actors)。
-langgraph的灵感来自 Pregel 和 Apache Beam。暴露的接口借鉴了 NetworkX。
+langgraph 是一个使用LLM来构建有状态的、multi-actor应用程序的库。
+它扩展了 LangChain Expression Language的能力，能够以循环的方式跨多个计算step来协调多个chains(或者actors)。
+langgraph 的灵感来自 Pregel 和 Apache Beam。暴露的接口借鉴了 NetworkX。
 
 > Pregel 是由Google发布的大规模图处理系统，基于BSP(Bulk Synchronous Parallel，整体同步并行)模型来实现。
 > Apache Beam：一个用于定义批处理和流数据并行处理管道的统一模型。
@@ -29,7 +30,7 @@ langgraph的核心点是为LLM应用程序添加了循环。
 对于类似Agent的行为，循环是核心功能，其核心流程是：循环调用LLM来确定下一步该如何做。
 对于multi-Agent的场景，循环也是核心功能，其核心流程是：多个Agent之间需要进行多轮会话。
 
-相比于langgraph, langchain构建的LLM应用是一种DAG工作流程，也就是说，某个功能调用结束后不能再次调用，除非手动进行了特殊处理（比如AgentExecutor）。
+相比于langgraph，langchain构建的LLM应用是一种DAG工作流程，也就是说，某个功能调用结束后不能再次调用，除非手动进行了特殊处理（比如AgentExecutor）。
 langchain提供内置的LECL语言来支持DAG工作流程，并针对性地进行了优化。注意：langgraph并未针对DAG流程进行优化，建议用langchain来构建DAG工作流程。
 
 > 对于langchain提供的 AgentExecutor，langgraph可以实现同样的能力，具体见 示例
@@ -44,7 +45,7 @@ langchain提供内置的LECL语言来支持DAG工作流程，并针对性地进�
 
 > 代码自测可运行，可能需要手动安装一些pkg
 
-```
+```python
 import operator
 from typing import TypedDict, Annotated, Union
 
@@ -219,12 +220,12 @@ for s in app.stream(inputs):
 
 ## 总结
 
-本文简单介绍了langgraph，通过例子展示了langgraph灵活的Agent构建方案。其中，背后的设计逻辑也很值得学习。后续我将会逐步拆解源码的实现，以及pregel和beam的作用
+本文简单介绍了 langgraph，通过例子展示了 langgraph 灵活的Agent构建方案。其中，背后的设计逻辑也很值得学习。后续我将会逐步拆解源码的实现，以及pregel和beam的作用
 
 ## 参考
 
 1. [面向大规模图计算的系统优化](https://www.birentech.com/Research_nstitute_details/18087820.html)
 2. [Pregel（图计算）技术原理](https://cshihong.github.io/2018/05/30/Pregel%EF%BC%88%E5%9B%BE%E8%AE%A1%E7%AE%97%EF%BC%89%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/)
 3. [DPA Bulk Synchronous Prallel](https://web.cse.msstate.edu/~luke/Courses/fl15/CSE4163/Slides/DPA_BSP.pdf)
-4. [langraph](https://python.langchain.com/docs/langgraph/#documentation)
+4. [langgraph](https://python.langchain.com/docs/langgraph/#documentation)
 5. [What's next for AI agentic workflows ft. Andrew Ng of AI Fund](https://www.youtube.com/watch?v=sal78ACtGTc)

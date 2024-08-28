@@ -198,8 +198,7 @@ Reconcile方法的具体实现流程为：
 其中，ReconcileJobs是ControllerInterface接口中的方法，该方法在common.JobController提供了默认实现（也可以重写）。
 PyTorchJobReconciler复用了默认实现的 ReconcileJobs 方法。
 
-`ReconcilePods(job interface{}, jobStatus *apiv1.JobStatus, pods []*v1.Pod, rtype apiv1.ReplicaType, spec *apiv1.ReplicaSpec,
-replicas map[apiv1.ReplicaType]*apiv1.ReplicaSpec) error`
+`ReconcileJobs(job interface{}, replicas map[apiv1.ReplicaType]*apiv1.ReplicaSpec, jobStatus apiv1.JobStatus, runPolicy *apiv1.RunPolicy) error`
 
 ReconcileJobs方法的具体实现流程为：
 + for every replica; execute ResetExpectations

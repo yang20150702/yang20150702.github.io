@@ -370,7 +370,7 @@ Rendezvous
 + EtcdRendezvousHandler：
 + StaticTCPRendezvous：基于TCPStore的wrapper，静态会合
 
-DynamicRendezvousHandler是Rendezvous的核心实现，支持两种Backend，具体设计以及实现？与etcdRendezvous之间的区别是什么？
+DynamicRendezvousHandler是Rendezvous的核心实现，支持两种Backend
 
 属性：
 + `_NodeDesc`

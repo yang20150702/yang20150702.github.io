@@ -1,6 +1,6 @@
 # Site settings
 title: 无限可能的想象力
-SEOTitle: 解码未来 | 无限可能的创造力与想象力，Rust
+SEOTitle: 解码AI | 无限可能的创造力与想象力，Rust，LLM
 header-img: img/home-bg-o.jpg
 email: 9620332265@qq.com
 description: "认真做事"
@@ -35,11 +35,12 @@ plugins:
 markdown: kramdown
 kramdown:
   input: GFM # use Github Flavored Markdown !important
+  syntax_highlighter: rouge
   syntax_highlighter_opts:
     span:
       line_numbers: false
     block:
-      line_numbers: true
+      line_numbers: false
       start_line: 1
 
 
@@ -84,10 +85,6 @@ page-mathjax: true
 
 # Friends
 friends: [
-    {
-        title: "Hux Blog",
-        href: "http://huangxuan.me"
-    },
   {
     title: "Halfwork: 让创作变得更简单 轻松完成你的工作",
     href: "https://halfwork.cn/"

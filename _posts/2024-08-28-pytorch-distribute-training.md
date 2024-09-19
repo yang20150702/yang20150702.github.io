@@ -123,8 +123,6 @@ elastic提供了如下能力：
 + Subprocess Handling
 + Control Plane
 
-elastic_launch 会通过 elastic agent 来管理 worker 的生命周期。
-
 #### torchrun
 
 `torch.distributed.launch`功能：在每个训练节点上创建多个分布式训练进程。
@@ -241,21 +239,22 @@ agent-to-worker的部署拓扑和比率取决于agent的具体实现以及job分
 + 使用 2 x 4 GPU实例，每个实例上运行一个agent，每个agent管理4个worker
 + 使用 1 x 8 GPU实例，每个实例上运行一个agent，每个agent管理8个worker
 
+SimpleElasticAgent 和 LocalElasticAgent 是 ElasticAgent 的实现
+
 ##### SimpleElasticAgent实现
 
 SimpleElasticAgent：管理特定类型的worker角色的ElasticAgent
 
-ElasticAgent:
-+ SimpleElasticAgent
-  + WorkerGroup
-    + WorkerSpec
-      + RendezvousHandler
-  + 默认实现的方法：
-    + `_assign_worker_ranks`：判断工作进程正确的rank。
-    + `_rendezvous(worker_group: WorkerGroup)`：由worker spec指定的workers执行会合
-    + `run(role: str)`：根据 WorkerGroup的状态重启workers或者直接退出
-    + `_initialize_workers(worker_group: WorkerGroup)`：启动新的workers
-    + `_restart_workers(worker_group: WorkerGroup)`：重启（stops, rendezvous, start）工作组所有本地的worker
+SimpleElasticAgent:
++ WorkerGroup
+  + WorkerSpec
+    + RendezvousHandler
++ 默认实现的方法：
+  + `_assign_worker_ranks`：判断工作进程正确的rank。
+  + `_rendezvous(worker_group: WorkerGroup)`：由worker spec指定的workers执行会合
+  + `run(role: str)`：根据 WorkerGroup的状态重启workers或者直接退出
+  + `_initialize_workers(worker_group: WorkerGroup)`：启动新的workers
+  + `_restart_workers(worker_group: WorkerGroup)`：重启（stops, rendezvous, start）工作组所有本地的worker
 
 rank分配算法为：
 1. 每个agent将其配置（group_rank、group_world_size、num_workers）写入公共存储。
@@ -270,7 +269,7 @@ rank分配算法为：
 ##### LocalElasticAgent实现
 
 LocalElasticAgent：
-+ 在每台主机上进行部署，配置为创建n个workers；当使用GPU时，`n`映射为主机上可用的GPU数量
++ 在每台主机上部署，配置为创建n个workers；当使用GPU时，`n`映射为主机上可用的GPU数量
 + 本地agent不能与部署在其他host的agent进行通信，即使workers可以跨主机通信
 + worker id被解析为本地进程。agent作为一个单元启动和停止所有的worker进程
 

@@ -1,10 +1,9 @@
 ---
 layout: post
-title: "Torchelastic agent and user worker failover 故障转移约定"
+title: "Torchelastic agent和user worker之间故障转移约定"
 date: 2024-08-28
 tag:
-- 分布式计算架构
-- training-operator
+- 分布式训练
 - pytorch
 comments: false
 ---

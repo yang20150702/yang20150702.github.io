@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Pytorch DDP分布式数据并行训练"
-date: 2024-08-28
+date: 2024-09-25
 tag:
 - 模型训练
 - DDP

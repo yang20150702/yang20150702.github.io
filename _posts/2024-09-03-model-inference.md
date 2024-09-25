@@ -1,11 +1,9 @@
 ---
 layout: post
 title: "vllm是如何支持大模型分布式推理？"
-date: 2024-08-28
+date: 2024-09-25
 tag:
-- 分布式计算架构
-- training-operator
-- pytorch
+- vllm
 comments: false
 mathjax: true
 ---

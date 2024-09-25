@@ -1,10 +1,8 @@
 ---
 layout: post
 title: "Pytorch DeviceMesh"
-date: 2024-08-28
+date: 2024-09-25
 tag:
-- 分布式计算架构
-- training-operator
 - pytorch
 comments: false
 ---

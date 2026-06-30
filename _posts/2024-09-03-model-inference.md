@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "vllm是如何支持大模型分布式推理？"
+title: "vllm是如何支持大模型分布式推理?"
 date: 2024-09-25
 tag:
 - vllm
